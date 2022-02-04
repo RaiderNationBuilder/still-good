@@ -1,0 +1,26 @@
+QUERIES
+me returns User type
+
+MUTATIONS
+login, accepts email, password, returns Auth (JWT)
+addUser, accepts email, password, returns Auth
+saveItem, accepts array of categories (strings), storage location (string), addedDate (date), experiationDate (date), name (string), quantity (int)
+removeItem, accepts itemId (verifies it belongs to user)
+
+
+TYPEDEFS
+type User {
+    _id: ID
+    email: String
+    itemCount: Int
+    savedItems: [Item]s
+  }
+type Item {
+    categories: [String]  # TJ: not sure this is necessary/overengineering
+    storageLocation: String
+    addedDate: Date # front end needs format yyyy-mm-dd, could write a frontend helper function
+    useByDate: Date
+    name: String
+    quantity: Int
+    unit: String
+}

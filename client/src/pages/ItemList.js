@@ -1,43 +1,54 @@
 import React, { useState } from 'react';
-import { Stack, Typography, Button } from '@mui/material';
-
+import { Stack, Typography, Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import SingleItem from '../components/SingleItem';
+import ItemEdit from '../components/ItemEdit';
+
+import { sortDate } from '../utils/helpers';
+// TODO replace test data with useQuery to pull in user's items
+import { sampleData } from '../utils/sampleData';
 
 function ItemList() {
-  const [itemData, setItemData] = useState([
-    {
-      id: 1,
-      name: 'Apples',
-      dateExpires: '02/22/22',
-      dateAdded: '02/12/22',
-      storageLocation: 'Counter',
-    },
-    {
-      id: 2,
-      name: 'Ice Cream',
-      dateExpires: '03/23/22',
-      dateAdded: '02/12/22',
-      storageLocation: 'Freezer',
-    },
-    {
-      id: 3,
-      name: 'Can of Green Beans',
-      dateExpires: '07/10/24',
-      dateAdded: '02/12/22',
-      storageLocation: 'Pantry',
-    },
-  ]);
+  // Set which item will be edited in ItemEdit modal
+  const [editedItem, setEditedItem] = useState({});
+
+  // Turn edit modal on and off
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  // TODO replace test data with useQuery to pull in user's items
+  const [itemData] = useState(sortDate(sampleData));
+
+  // Add Item(s) button handler
+  function handleAddItem() {
+    // clear edited item
+    setEditedItem({});
+    // open modal
+    setDialogOpen(true);
+  }
 
   return (
-    <Stack>
-      <Typography variant="h4">Item List</Typography>
-      {itemData.map(item => {
-        return <SingleItem item={item} key={item.id} />;
-      })}
-      <Button href="/itemedit" variant="contained">
-        Add Items
-      </Button>
-    </Stack>
+    <>
+      <Stack margin={1}>
+        <ItemEdit
+          dialogOpen={dialogOpen}
+          setDialogOpen={setDialogOpen}
+          setEditedItem={setEditedItem}
+          editedItem={editedItem}
+        />
+        <Typography variant="h4">Item List</Typography>
+
+        {/* Sort item array on render */}
+        {console.log()}
+
+        {/* Map items into cards */}
+        {itemData.map(item => {
+          return <SingleItem setEditedItem={setEditedItem} setDialogOpen={setDialogOpen} item={item} key={item._id} />;
+        })}
+      </Stack>
+      <Fab onClick={handleAddItem} color="primary" aria-label="add" style={{ position: 'fixed bottom right' }}>
+        <AddIcon />
+      </Fab>
+    </>
   );
 }
 
