@@ -24,6 +24,12 @@ const foodItemSchema = new Schema({
         date: Date.now
 
     },
+    comments:[
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'storageLocation'
+        }
+    ]
 
 
 });
