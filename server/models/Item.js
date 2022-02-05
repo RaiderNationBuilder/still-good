@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const itemSchema = new Schema({
-    categories: {
-        type: String,
-        required: true,
-        trim: true
-    },
+    categories: [
+        {
+            type: String,
+            required: true,
+            trim: true
+        }
+    ],
     storageLocation: {
         type: String,
         required: true,

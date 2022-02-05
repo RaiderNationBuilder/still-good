@@ -3,11 +3,11 @@ const { Item, User } = require('../models');
 const { faker } = require('@faker-js/faker');
 const fs = require('fs');
 const foods = require('./foods.json').foods;
-
+const bcrypt = require('bcrypt');
 faker.seed(1123123123123123123123);
 db.once('open', async () => {
-  await Item.deleteMany();
-  await User.deleteMany();
+  await Item.deleteMany({});
+  await User.deleteMany({});
 
   const userData = [];
   const numberOfUsers = 50;
@@ -15,8 +15,8 @@ db.once('open', async () => {
   for (let i = 0; i < numberOfUsers; i += 1) {
     const email = faker.internet.email();
     const password = faker.internet.password();
-    
-    userData.push({email, password});
+    const hashedPassword = await bcrypt.hash(password,10);
+    userData.push({email, password: hashedPassword});
   }
 
   const createdUsers = await User.collection.insertMany(userData);
@@ -52,7 +52,7 @@ db.once('open', async () => {
 
     const updatedUser = await User.updateOne(
       {_id: userIDsArray[randomUser]},
-      {$push: {savedItems: createdItem._id}}
+      {$push: {saveItem: createdItem._id}}
     );
 
   }
