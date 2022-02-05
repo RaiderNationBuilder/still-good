@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 //needs DB name
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/still-good-db', {
