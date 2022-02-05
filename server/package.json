@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon",
-    "seed": "node config/seeds.js"
+    "seed": "node seeds/seed.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/vw0389/still-good#readme",
   "dependencies": {
+    "@faker-js/faker": "^6.0.0-alpha.5",
     "apollo-server-express": "^3.6.2",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",

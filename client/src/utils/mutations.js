@@ -41,6 +41,23 @@ export const SAVE_ITEM = gql `
   }
 `;
 
+export const UPDATE_ITEM = gql `
+  mutation updateItem ($input: UpdateItemInput) {
+    updateItem (input: $input) {
+      _id
+      username
+      savedItems {
+        categories
+        storageLocation
+        addedDate
+        expirationDate
+        name
+        quantity
+      }
+    }
+  }
+`;
+
 export const REMOVE_ITEM = gql`
   mutation removeItem ($_id: ID! ) {
     removeItem(_id: $_id) {
