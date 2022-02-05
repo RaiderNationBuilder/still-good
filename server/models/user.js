@@ -19,7 +19,7 @@ const UserSchema = new Schema({
         required: true,
         minlength: 7
     },
-    saveItem: []
+    saveItems: [itemSchema]
 });
 const User = model('User', UserSchema);
 

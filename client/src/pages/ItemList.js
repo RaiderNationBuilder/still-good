@@ -28,14 +28,14 @@ function ItemList() {
 
   return (
     <>
-      <Stack margin={1}>
+      <Stack margin={2} alignItems="center">
         <ItemEdit
           dialogOpen={dialogOpen}
           setDialogOpen={setDialogOpen}
           setEditedItem={setEditedItem}
           editedItem={editedItem}
         />
-        <Typography variant="h4">Item List</Typography>
+        <Typography variant="h5">My Goods</Typography>
 
         {/* Sort item array on render */}
         {console.log()}
@@ -44,10 +44,10 @@ function ItemList() {
         {itemData.map(item => {
           return <SingleItem setEditedItem={setEditedItem} setDialogOpen={setDialogOpen} item={item} key={item._id} />;
         })}
+        <Fab onClick={handleAddItem} color="primary" aria-label="add" style={{ position: 'fixed bottom right' }}>
+          <AddIcon />
+        </Fab>
       </Stack>
-      <Fab onClick={handleAddItem} color="primary" aria-label="add" style={{ position: 'fixed bottom right' }}>
-        <AddIcon />
-      </Fab>
     </>
   );
 }

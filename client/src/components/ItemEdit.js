@@ -1,19 +1,29 @@
 import React, { useState } from 'react';
-import { Button, ButtonGroup, Dialog, DialogTitle, Grid, MenuItem, Select, Stack, TextField } from '@mui/material';
+import {
+  Button,
+  ButtonGroup,
+  Dialog,
+  DialogTitle,
+  Grid,
+  MenuItem,
+  Tooltip,
+  Select,
+  Stack,
+  TextField,
+} from '@mui/material';
 import TaskAlt from '@mui/icons-material/TaskAlt';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DoDisturb from '@mui/icons-material/DoDisturb';
 
 function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
-  
-  // Generic onChange handler
-  function editField(event) {
-    const { name, value } = event.target;
-    setEditedItem({
-      ...editedItem,
-      [name]: value,
-    });
-  }
+  // // Generic onChange handler
+  // function editField(event) {
+  //   const { name, value } = event.target;
+  //   setEditedItem({
+  //     ...editedItem,
+  //     [name]: value,
+  //   });
+  // }
 
   // TODO Create validation for required fields
   // Have been checking out this video for reference: https://www.youtube.com/watch?v=sTdt2cJS2dg
@@ -22,21 +32,20 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
   const [itemNameError, setItemNameError] = useState(false);
   const [useByDateError, setUseByDateError] = useState(false);
 
-
   // TODO Submit button handler
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = e => {
     e.preventDefault();
     setItemNameError(false);
     setUseByDateError(false);
 
-    if (itemName == '') {
+    if (itemName === '') {
       setItemNameError(true);
     }
-    if (itemName == '') {
+    if (itemName === '') {
       setUseByDateError(true);
     }
 
-    if(itemName && useByDate){
+    if (itemName && useByDate) {
       console.log(itemName);
     }
     // TODO useMutation saveItem
@@ -45,7 +54,7 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
     setEditedItem({});
 
     setDialogOpen(false);
-  }
+  };
   // TODO Submit and add button handler
   function handleSubmitAndAdd() {
     // TODO useMutation saveItem
@@ -68,9 +77,8 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
         <Stack margin={2} spacing={2}>
           {/* Name Field */}
           <TextField
-
             name="name"
-            value={editedItem.name}
+            defaultValue={editedItem.name}
             size="small"
             label="Item"
             type="text"
@@ -80,7 +88,6 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
             InputLabelProps={{
               shrink: true,
             }}
-
           />
 
           <Grid container>
@@ -88,14 +95,13 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
               {/* Quantity Field */}
               <TextField
                 name="quantity"
-                value={editedItem.quantity}
+                defaultValue={editedItem.quantity}
                 size="small"
                 label="Quantity"
                 type="number"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                
               />
             </Grid>
             <Grid item xs={5}>
@@ -106,22 +112,20 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
               */}
               <TextField
                 name="unit"
-                value={editedItem.unit}
+                defaultValue={editedItem.unit}
                 size="small"
                 label="Unit"
                 type="text"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                
               />
             </Grid>
           </Grid>
           {/* Use By Field */}
           <TextField
-
             name="useByDate"
-            value={editedItem.useByDate}
+            defaultValue={editedItem.useByDate}
             size="small"
             label="Use by"
             type="date"
@@ -130,26 +134,21 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
             InputLabelProps={{
               shrink: true,
             }}
-
           />
 
           {/* Added On Field */}
           <TextField
             name="addedDate"
-            value={editedItem.addedDate}
+            defaultValue={editedItem.addedDate}
             size="small"
             label="Added on"
             type="date"
             InputLabelProps={{
               shrink: true,
             }}
-
           />
 
           {/* Storage Location Selector */}
-          {/* 
-          //TODO resolve controlled/uncontrolled object error 
-          */}
           <Select
             name="storageLocation"
             label="Stored where"
@@ -164,15 +163,21 @@ function ItemEdit({ dialogOpen, setEditedItem, editedItem, setDialogOpen }) {
 
           {/* Buttons */}
           <ButtonGroup variant="contained" fullWidth={true}>
-            <Button onClick={handleFormSubmit}>
-              <TaskAlt />
-            </Button>
-            <Button onClick={handleSubmitAndAdd}>
-              <AddTaskIcon />
-            </Button>
-            <Button onClick={handleEditCancel}>
-              <DoDisturb />
-            </Button>
+            <Tooltip title="Submit" placement="top">
+              <Button onClick={handleFormSubmit}>
+                <TaskAlt />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Submit and Add" placement="top">
+              <Button onClick={handleSubmitAndAdd}>
+                <AddTaskIcon />
+              </Button>
+            </Tooltip>
+            <Tooltip title="Cancel" placement="top">
+              <Button onClick={handleEditCancel}>
+                <DoDisturb />
+              </Button>
+            </Tooltip>
           </ButtonGroup>
         </Stack>
       </form>
